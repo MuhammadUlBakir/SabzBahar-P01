@@ -1,0 +1,58 @@
+
+
+.image-container {
+    position: relative;     
+    overflow: hidden;
+}
+
+.cat {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.cat span {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: monospace;
+}
+
+.cat p{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    text-decoration: underline;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+
+.relative:hover .cat {
+    opacity: 1;
+}
+
+/* Transition classes */
+.thumbnail {
+    transition: border-color 0.3s ease-in-out;
+}
+
+.selected-image img {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hovering:hover~img{
+    transform: scale(1.2);
+}

@@ -31,7 +31,7 @@ const PageFooter = () => {
     <div className="footer__content">
       <h3 className="footer__title">Contact Us</h3>
       <ul className="footer__data">
-        <li className="footer__information">+999 888 777</li>
+        <li className="footer__information">+92 3313505302</li>
         <div className="footer__social">
           <a href="https://www.facebook.com/" className="footer__social-link">
             <i className="ri-facebook-fill" />
@@ -57,7 +57,7 @@ const PageFooter = () => {
       </div>
     </div>
   </div>
-  <p className="footer__copy">© Bedimcode. All rigths reserved</p>
+  <p className="footer__copy">© MJ. All rigths reserved</p>
 </footer>
 
       </>

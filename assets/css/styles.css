@@ -3,9 +3,7 @@
 
 /*=============== VARIABLES CSS ===============*/
 :root {
-  --header-height: 3.5rem; /*56px*/
-
-  /*========== Colors ==========*/
+  --header-height: 3.5rem;
   /*Color mode HSL(hue, saturation, lightness)*/
   --hue: 152;
   --first-color: hsl(var(--hue), 24%, 32%);

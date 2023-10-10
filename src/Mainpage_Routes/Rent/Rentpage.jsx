@@ -189,7 +189,7 @@ export default function RentPage () {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24" data-aos = "fade-down" data-aos-duration = "3000">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900" style={{color : "grey"}}>Rental Plants</h1>
 
             <div className="flex items-center">
@@ -236,10 +236,10 @@ export default function RentPage () {
                 </Transition>
               </Menu>
 
-              <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+              <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7" onClick={() => Navigate("/rentcheckout")}>
                 <span className="sr-only">View grid</span>
                                   <Icon icon="akar-icons:plant" style={{ fontSize: "27px", marginTop : "20px" }} />
-                  <ResBadge><div>{cnum.length}</div></ResBadge>
+                  <ResBadge><div >{cnum.length}</div></ResBadge>
               </button>
               <button
                 type="button"

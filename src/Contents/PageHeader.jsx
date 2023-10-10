@@ -4,7 +4,10 @@ import Cart_Icon from "../nav_component/cart_component/Cart_Icon";
 import ProfileIcon from "../nav_component/profile_component/ProfileIcon";
 import { useContext } from "react";
 import { ThemeContext } from "../Mainpage_Routes/Test/Testpage";
+import Styled from "styled-components";
+const Productres = Styled.div`
 
+`
 const PageHeader = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('selected-theme') || 'light');
@@ -63,6 +66,7 @@ const PageHeader = () => {
 
   return (
     <>
+      <Productres>
       <header className="header" id="header">
         <nav className="nav container">
           <NavLink exact to={"/"} className="nav__logo" style={{ fontSize: "20px" }}>
@@ -145,6 +149,7 @@ const PageHeader = () => {
           </div>
         </nav>
       </header>
+     </Productres>
     </>
   );
 };

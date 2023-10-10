@@ -61,7 +61,9 @@ const ChangePassword = () => {
     <>
             <div className='flex justify-center items-start sm:items-center h-screen bg-white'>
 
-                <div  className={`lg:w-[55%] md:w-[65%] sm:w-[75%] w-[100%] flex flex-col  sm:rounded-[15px] sm:flex-row bg-white h-[500px] sm:shadow-lg sm:shadow-slate-500/40`}>
+              <div className={`lg:w-[55%] md:w-[65%] sm:w-[75%] w-[100%] flex flex-col  sm:rounded-[15px] sm:flex-row bg-white h-[500px] sm:shadow-lg sm:shadow-slate-500/40`}
+              data-aos = "fade-right" data-aos-duration = "2000"
+              >
                     <div className='sm:w-[40%] w-[100%] h-[300px] sm:h-full bg-[#3e6553]  flex flex-col justify-center sm:rounded-l-[15px] text-center text-white px-[20px]'>
                         <h1 className='font-semibold text-white text-[30px] my-2'>Recover Password</h1>
                         <p className='sm:text-[14px] font-[50] text-[12px]'>Please change your password to recover your account</p>

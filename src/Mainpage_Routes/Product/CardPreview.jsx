@@ -348,7 +348,7 @@ const CardPreview = (props) => {
         <>
           {" "}
           <StyledDiv>
-            <body>
+            <body data-aos = "fade-up" data-aos-duration = "3000">
               <div class="container">
                 {props.data.map((elm, ind) => {
                   return (

@@ -310,6 +310,7 @@ const Rentcard = (props) => {
           if (findindex !== -1) {
             rdata[findindex].qty += 1
             rdata[findindex].rentcharge += rentcharge
+            SuccessToast("Quantity Added" , "top-center")
           } else {
             const rentdata = {
               rid: elm._id,
@@ -324,7 +325,6 @@ const Rentcard = (props) => {
             SuccessToast("Rent Product Added" , "top-center")
           }
           localStorage.setItem("RentData1", JSON.stringify(rdata));
-          SuccessToast("Quantity Added" , "top-center")
 
         } catch (error) {
             console.log(error);
@@ -352,7 +352,7 @@ const Rentcard = (props) => {
         <>
           {" "}
           <StyledDiv>
-            <body>
+            <body data-aos = "fade-up" data-aos-duration = "3000">
               <div class="container">
                 {data2.map((elm, ind) => {
                   return (

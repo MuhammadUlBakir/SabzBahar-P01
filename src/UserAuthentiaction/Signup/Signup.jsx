@@ -58,7 +58,9 @@ function Signup() {
         <>
             <ToastContainer />
             <div className="fwrapper w-full h-full sm:h-screen flex justify-center items-center bg-white rounded-md">
-                <div className="fcontainer w-[100%] sm:w-[75%] md:w-[65%] lg:w-[55%] sm:mx-0 flex-col sm:flex-row flex h-full md:h-[520px] bg-slate-50 sm:shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] sm:rounded-[16px]">
+                <div className="fcontainer w-[100%] sm:w-[75%] md:w-[65%] lg:w-[55%] sm:mx-0 flex-col sm:flex-row flex h-full md:h-[520px] bg-slate-50 sm:shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] sm:rounded-[16px]"
+                data-aos = "fade-right" data-aos-duration = "2000"
+                >
                     <div className="rimg bg-[#3e6553] px-8 flex justify-center py-10 items-center flex-col w-[100%] sm:w-[45%] text-white h-full sm:rounded-s-[16px]">
                         <h1 className='text-center text-white text-[20px] sm:text-[22px] md:text[24px] font-medium'>Already Have An Account?</h1>
                         <p className='text-[14px] md:text-[16px] px-2 py-1 text-center'>Enter a World of Green Delights: Sign In to Nurture Nature's Beauty!</p>
@@ -73,23 +75,23 @@ function Signup() {
                             </h1>
                             <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
                                 <div>
-                                    <input className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm  block w-full p-2 " id="grid-first-name" type="text" placeholder="Username" name='username' value={formData.username} onChange={handleInputChange} />
+                                    <input className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm  block w-full p-2 " id="grid-first-name" type="text" placeholder="Username" name='username' value={formData.username} onChange={handleInputChange} style={{borderRadius : "7px"}} />
                                 </div>
                                 <div>
-                                    <input type="email" name="email" id="email" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2 " placeholder="name@company.com" required="" value={formData.email} onChange={handleInputChange} />
+                                    <input type="email" name="email" id="email" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2  " placeholder="name@company.com" required="" style={{borderRadius : "7px"}} value={formData.email} onChange={handleInputChange} />
                                 </div>
                                 <div>
-                                    <input type="number" name="number" id="number" placeholder="Phone Number" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2" required="" value={formData.number} onChange={handleInputChange} />
+                                    <input type="number" name="number" id="number" placeholder="Phone Number" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2" required="" style={{borderRadius : "7px"}} value={formData.number} onChange={handleInputChange} />
                                 </div>
                                 <div>
-                                    <input type="password" name="password" id="password" placeholder="••••••••" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2 " required="" value={formData.password} onChange={handleInputChange} />
+                                    <input type="password" name="password" id="password" placeholder="••••••••" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2 " required="" style={{borderRadius : "7px"}} value={formData.password} onChange={handleInputChange} />
                                 </div>
                                 <div>
-                                    <input type="password" name="confirm_password" id="confirm-password" placeholder="••••••••" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2 " required="" value={formData.confirm_password} onChange={handleInputChange} />
+                                    <input type="password" name="confirm_password" id="confirm-password" placeholder="••••••••" className="bg-white focus:border-[#3e6553] outline-none border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2 " required="" style={{borderRadius : "7px"}} value={formData.confirm_password} onChange={handleInputChange} />
                                 </div>
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
-                                        <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded checked:text-white  focus:border-[#3e6553] outline-none focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" />
+                                        <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded checked:text-white  focus:border-[#3e6553] outline-none focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" style={{borderRadius : "7px"}} />
                                     </div>
                                     <div className="ml-3 text-sm">
                                         <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>

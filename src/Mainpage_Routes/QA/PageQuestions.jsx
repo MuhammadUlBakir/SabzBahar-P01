@@ -1,6 +1,23 @@
 import React from "react";
 import Pagetitle from "../../Contents/Pagetitle";
 import { useState } from "react";
+import Styled from "styled-components";
+const Aboutres = Styled.div`
+@media (max-width: 767.98px) {
+width :40px;
+// position : fixed;
+}
+`
+const Faq = Styled.div`
+@media (max-width: 767.98px) {
+
+width : 300px;
+position : relative;
+left : 65px;
+border-radius : 20px;
+}
+
+`
 const PageQuestions = () => {
     const [toogle, Settoogle] = useState({
         open: false,
@@ -9,14 +26,16 @@ const PageQuestions = () => {
   return (
       <>
           <Pagetitle title = {"FAQ"} />
-       <section class="questions section" id="faqs">
-                <h2 class="section__title-center questions__title container">
+          <Aboutres>
+              <Faq>
+              <section class="questions section" id="faqs">
+                <h2 class="section__title-center questions__title container" data-aos = "fade-right" data-aos-duration = "2000">
                     Some common questions <br/> were often asked
                 </h2>
 
                 <div class="questions__container container grid">
                     <div class="questions__group">
-                        <div class="questions__item">
+                        <div class="questions__item" data-aos = "fade-right" data-aos-duration = "3000">
                             <header class="questions__header" onClick={() => Settoogle({open : true , qnum : 1})}>
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title" >
@@ -32,7 +51,7 @@ const PageQuestions = () => {
                             </div></> : "" }
                         </div>
 
-                        <div class="questions__item">
+                        <div class="questions__item" data-aos = "fade-right" data-aos-duration = "3000">
                             <header class="questions__header" onClick={() => Settoogle({open : true , qnum : 2})}>
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
@@ -48,7 +67,7 @@ const PageQuestions = () => {
                             </div></> : ""}
                         </div>
 
-                        <div class="questions__item">
+                        <div class="questions__item" data-aos = "fade-right" data-aos-duration = "3000">
                             <header class="questions__header" onClick={() => Settoogle({open : true , qnum : 3})}>
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
@@ -68,7 +87,7 @@ const PageQuestions = () => {
                     </div>
 
                     <div class="questions__group">
-                        <div class="questions__item">
+                        <div class="questions__item" data-aos = "fade-left" data-aos-duration = "3000">
                             <header class="questions__header" onClick={() => Settoogle({open : true , qnum : 4})}>
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
@@ -86,7 +105,7 @@ const PageQuestions = () => {
                            
                         </div>
 
-                        <div class="questions__item">
+                        <div class="questions__item" data-aos = "fade-left" data-aos-duration = "3000">
                             <header class="questions__header" onClick={() => Settoogle({open : true , qnum : 5})}>
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
@@ -104,7 +123,7 @@ const PageQuestions = () => {
                             
                         </div>
 
-                        <div class="questions__item">
+                        <div class="questions__item" data-aos = "fade-left" data-aos-duration = "3000">
                             <header class="questions__header" onClick={() => Settoogle({open : true , qnum : 6})}>
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
@@ -124,6 +143,8 @@ const PageQuestions = () => {
                     </div>
                 </div>
             </section>
+         </Faq>
+          </Aboutres>
     </>
   );
 };

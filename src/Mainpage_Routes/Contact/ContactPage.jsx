@@ -5,6 +5,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagetitle from "../../Contents/Pagetitle";
 import { ErrorToast, SuccessToast } from "../../GlobalTostify";
+import Styled from "styled-components";
+const Test = Styled.div`
+@media (max-width: 767.98px) {
+width : 300px;
+}
+`
 const ContactPage = () => {
   const [data, Setdata] = useState({
     email: "",
@@ -32,9 +38,10 @@ const ContactPage = () => {
   return (
     <>
       <Pagetitle title = {"Contact-Us"} />
+      <Test>
       <section className="contact section container" id="contact">
         <div className="contact__container grid">
-          <div className="contact__box">
+          <div className="contact__box" data-aos = "fade-right" data-aos-duration = "3000">
             <h2 className="section__title">
               Reach out to us today <br /> via any of the given <br />{" "}
               information
@@ -58,7 +65,7 @@ const ContactPage = () => {
               </div>
             </div>
           </div>
-          <form action className="contact__form" onSubmit={(e) => e.preventDefault()}>
+          <form action className="contact__form" onSubmit={(e) => e.preventDefault()} data-aos = "fade-left" data-aos-duration = "3000">
             <div className="contact__inputs">
               <div className="contact__content">
                 <input
@@ -108,6 +115,7 @@ const ContactPage = () => {
           </form>
         </div>
       </section>
+     </Test>
       {/* -------------- */}
       <ToastContainer
         position="top-right"

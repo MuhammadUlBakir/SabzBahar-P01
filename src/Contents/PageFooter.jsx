@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import { ErrorToast, InfoToast, SuccessToast, WarningToast } from '../GlobalTostify';
-
+import Aos from "aos";
+import "aos/dist/aos.css"
+import { useEffect } from 'react';
 const PageFooter = () => {
   const [data, Setdata] = useState("");
   const Checkdata = () => {
@@ -12,9 +14,12 @@ const PageFooter = () => {
       SuccessToast("Subscribe Successfully");
     }
   }
+  useEffect(() => {
+    Aos.init();
+  },[])
   return (
       <>
-      <footer className="footer section">
+      <footer className="footer section" data-aos = "fade-right" data-aos-duration = "3000">
   <div className="footer__container container grid">
     <div className="footer__content">
       <a href="#" className="footer__logo">

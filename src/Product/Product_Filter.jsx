@@ -233,7 +233,7 @@ export default function Product_Filter () {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24" data-aos = "fade-down" data-aos-duration = "3000">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900" style={{color : "grey"}}>{cname} Plants</h1>
 
             <div className="flex items-center">
@@ -303,7 +303,7 @@ export default function Product_Filter () {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <form className="hidden lg:block border-r-2">
+              <form className="hidden lg:block border-r-2" data-aos = "fade-right" data-aos-duration = "3000">
 
                 <h2 className='text-xl mb-5 font-semibold'>Filters</h2>
                 <h3 className="sr-only " style={{color : "grey"}}>Categories</h3>

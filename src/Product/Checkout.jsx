@@ -1,73 +1,317 @@
 import React from "react";
 import "./style.css";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../Contents/PageHeader";
+import PageFooter2 from "../Contents/PageFooter2";
+import Contacticon from "remixicon-react/ContactsLineIcon"
+import { Icon } from '@iconify/react';
+import cookie from "cookie_js";
+import { ErrorToast, SuccessToast, WarningToast } from "../GlobalTostify";
+import Styled from "styled-components";
+import { useContext } from "react";
+import { ThemeContext } from "../Mainpage_Routes/Test/Testpage";
+const Removediv = Styled.div`
+margin-left : 400px;
+color : red;
+margin-top : -60px;
+font-weight : bold;
+@media (max-width: 767.98px) {
+  margin-left : 200px;
+  position : relative;
+  top : -140px;
+  font-size : 0
+}
+`
+const Qtydiv = Styled.div`
+display : flex;
+position : relative;
+top : 108px;
+left : -90px;
+@media (max-width: 767.98px) {
+  margin-left : 110px;
+  position : relative;
+  top : 1px;
+  width : 100px
+}
+`
+const ContentDiv = Styled.div`
+font-size : 17px;
+position : relative;
+left : -60px;
+top : 10px;
+font-height : 20px;
+@media (max-width: 767.98px) {
+  margin-top : -141px;
+  padding-bottom : 30px;
+  margin-left : 180px;
+  font-size : 14px;
+  width : 120px;
+  font-height : 40px;
+
+  
+}
+`
+const Mobileremove = Styled.div`
+color : red;
+position : relative;
+left : 510px;
+font-size : 30px;
+top : -50px;
+cursor : pointer;
+@media (max-width: 767.98px) {
+  color : red;
+  position : relative;
+  left : 319px;
+  top : -100px;
+  font-size : 25px;
+  width : 50px
+}
+`
+const QtyBtn = Styled.div`
+border : 1px solid;
+height : 30px;
+width : 47px;
+margin-left : -17px;
+padding-left : 10px;
+padding-top : 2px;
+border-color : lightgrey;
+border-radius : 5px;
+@media (max-width: 767.98px) {
+border : 1px solid;
+border-color : black;
+width : 45px;
+height : 30px;
+padding-top : 3px;
+padding-left : 11px;
+margin-left : -9px;
+border-radius : 3px;
+border-color : lightgrey
+}
+` 
+const QtyBtnl = Styled.div`
+border : 1px solid;
+height : 30px;
+width : 47px;
+margin-left : 4px;
+padding-left : 10px;
+padding-top : 2px;
+border-color : lightgrey;
+border-radius : 5px;
+
+@media (max-width: 767.98px) {
+width : 45px;
+margin-left : 4px;
+border : 1px solid;
+border-color : black;
+padding-top : 3px;
+padding-left : 11px;
+border-radius : 3px;
+border-color : lightgrey
+}
+`
+const Orderpage = Styled.div`
+margin-top : 75px;
+border-radius : 10px;
+@media (max-width: 767.98px) {
+  margin-top : -20px;
+  padding-bottom : 40px;
+  width : 380px;
+  margin-left : 15px;
+}
+` 
+const AmountContent = Styled.div`
+font-size: 1.2rem;
+line-height: 1.75rem;
+@media (max-width: 767.98px) {
+  font-size : 16px;
+}
+`
+const Mobilehr = Styled.div`
+color : white ;
+width : 750px ;
+position : relative ;
+left : -220px ;
+top : 30px ;
+height : 10px;
+@media (max-width: 767.98px) {
+  width : 330px;
+  left : -2px ;
+
+}
+`
 function Checkout() {
-  const { price } = useParams();
-  const [email, Setemail] = useState("");
-  const [name, Setname] = useState("");
-  const [cardnum, Setcardnum] = useState("");
-  const [address, Setaddress] = useState("");
+  //--------------------
+  const [data, Setdata] = useState({
+    email: "",
+    cardholdername: "",
+    cardnum: "",
+    address: "",
+    contact: "",
+    cityname: ""
+  });
+  const [courier, Setcourier] = useState({
+    cname: "",
+    charges: ""
+  });
   const navigate = useNavigate();
   const [data2, Setdata2] = useState([]);
+  const [themedata, Setthemedata] = useState("");
+  const [currtheme, Setcurrtheme] = useState("");
+  //--------------------
+  let amount = 0;
+  const {theme} = useContext(ThemeContext)
+  //--------------------
   const Cartdata = async () => {
     try {
-      const existingCartData = localStorage.getItem("cartData10");
-      Setdata2(JSON.parse(existingCartData));
+      const existingCartData = localStorage.getItem("Cart");
+      existingCartData ? Setdata2(JSON.parse(existingCartData)) : navigate("/")
     } catch (error) {
       console.log(error);
     }
   };
-
-  const Orderdata = async () => {
-    if (!name || !email || !cardnum || !address) {
-      alert("Please fill all the fields");
-    } else {
-      const orderdata = await axios.post("https://tiny-pink-loafers.cyclic.app/api/saveorder", {
-        name,
-        email,
-        cardnum,
-        address,
-        data2,
-      });
-        if (orderdata.data.success === true) {
-            alert("Ordered Successfully");
-            setTimeout(() => { navigate("/") }, 4000);
-        }
+  //--------------------
+  const PrevOrderInfo = async () => {
+    const email = cookie.get("Useremail");
+    try {
+      const prevdata = await axios.post("/api/contactinfo", { email });
+      console.log(prevdata.data)
+      if (prevdata) {
+        prevdata.data.odata.map((elm, ind) => {
+          Setdata({
+            email: elm.email,
+            cardholdername: elm.holdername,
+            address: elm.address,
+            contact: elm.contact,
+            cityname: elm.city
+          });
+        })
+      } 
+    } catch (error) {
+      console.log(error);
     }
-    navigate("/");
-    alert("Ordered Successfully");
-  };
+  }
+  //--------------------
+  data2.map((elm) => {
+    const price = elm.qty * elm.pprice
+    amount += price
+  })
+  const total = (amount + (amount * (5 / 100))) + courier.charges
+  // amount = 0;
+  //--------------------
+  const Orderdata = async () => {
+    const userid = cookie.get("Userid");
+    const {email , cardholdername , cardnum , address} = data
+    if (!cardholdername || !email || !cardnum || !address || !courier.cname || !courier.charges) {
+      ErrorToast("Please Fill All The Fields", 3000);
+      
+    } else {
+     const Order = await axios.post("/api/orderproduct" , {data , courier : courier.cname , data2 , couriercharges : courier.charges , totalamount : total , amount : amount , userid })
+      if (Order.data.success === true && Order.data.status === 200) {
+        SuccessToast("Ordered! Check Email" , 3000);
+        localStorage.removeItem("Cart");
+        setTimeout(() => navigate("/"), 4000);
+      } else {
+        ErrorToast("Plz Try Again" , 3000)
+     }
+    }
+  }
+  //--------------------
+  const Inputval = (e) => {
+    const {name , value} = e.target
+    Setdata((pre) => {
+      return {...pre , [name] : value }
+    })
+  }
+  //---------------------
+  const Checkuser = () => {
+    const token = cookie.get("Usertoken");
+    !token ? navigate("/signin") : ""
+  }
+  //------------------------
+  const ShippingDetail = (name, charges) => {
+    Setcourier({
+      cname: name,
+      charges: charges
+    });
+  }
+  //---------------------------
+  const AddQty = (val) => {
+    const findindex = data2.findIndex(elm => elm.id === val.id);
+    data2[findindex].qty += 1;
+    localStorage.setItem("Cart", JSON.stringify(data2));
+    Cartdata();
+
+  }
+  const SubQty = (val) => {
+    const findindex = data2.findIndex(elm => elm.id === val.id);
+    if (data2[findindex].qty >= 1) {
+      data2[findindex].qty -= 1;
+    } else {
+      WarningToast("Limit Exceed")
+    }
+    localStorage.setItem("Cart", JSON.stringify(data2));
+    Cartdata();
+  }
+  //---------------------------
+  const RemoveItem = (index) => {
+    data2.splice(index, 1);
+    localStorage.setItem('Cart', JSON.stringify(data2));
+    Cartdata();
+    SuccessToast("Item Removed", 3000);
+  }
+  //---------------------------
+  const Currtheme = () => {
+    const selectedtheme = localStorage.getItem("selected-theme");
+    Setthemedata(selectedtheme);
+  }
+  //---------------------------
+
   useEffect(() => {
+    Currtheme();
+    Checkuser();
     Cartdata();
   }, []);
+  useEffect(() => {
+    PrevOrderInfo();
+  },[])
   return (
     <>
+      <PageHeader />
+      
       <div className="grid sm:px-10 lg:grid-cols-2 mt-10 lg:px-20 xl:px-32">
-        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-          <p className="text-xl font-medium">Payment Details {price}</p>
-          <p className="text-gray-400">
-            Complete your order by providing your payment details.
+
+        <Orderpage>
+        <div className="mt-10 border border-grey px-4 pt-8 lg:mt-0" style={{borderRadius : "10px" , backgroundColor : theme ? (theme !== "dark" ? "#2f3733" : "white") : (themedata == "dark" ? "#2f3733" : "white")}}>
+            <p style={{ fontWeight: "bold", marginTop: "-16px", cursor: "pointer" }} onClick={() => navigate(-1)}>{"<--"} Back Page {}</p>
+          <hr  style={{position : "relative", top : "7px"}}/>
+        {/* <button onClick={() => navigate("/product")} style={{ cursor : "pointer"  , position : "relative" , bottom : "30px" , right : "15px" , height : "35px"}} className="button"><p style={{marginTop : "-9px" , marginRight : "10px"}}>{`<- Back`}</p></button> */}
+
+          {/* <p className="text-xl font-medium">Payment Details {price}</p> */}
+          <p className="text-gray-400" style={{marginTop : "30px"}}>
+            Complete your order by providing your payment details. 
+         
           </p>
           <div className="">
             <label
               htmlFor="email"
               className="mt-4 mb-2 block text-sm font-medium"
             >
-              Email
+              Email 
             </label>
             <div className="relative">
               <input
                 type="text"
                 id="email"
                 name="email"
-                onChange={(e) => Setemail(e.target.value)}
+                onChange={Inputval}
+                value={data.email}
                 required
                 className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[#3e6553] focus:ring-blue-500"
-                placeholder="your.email@gmail.com"
+                  placeholder="your.email@gmail.com"
+                  style={{backgroundColor : "transparent"}}
               />
               <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                 <svg
@@ -96,8 +340,11 @@ function Checkout() {
               <input
                 type="text"
                 id="card-holder"
-                onChange={(e) => Setname(e.target.value)}
-                name="name"
+                onChange={Inputval}
+                  value={data.cardholdername}
+                  style={{backgroundColor : "transparent"}}
+
+                name="cardholdername"
                 className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-[#3e6553] focus:ring-blue-500"
                 placeholder="Your full name here"
               />
@@ -122,16 +369,19 @@ function Checkout() {
               htmlFor="card-no"
               className="mt-4 mb-2 block text-sm font-medium"
             >
-              Card Details
+              Card Details 
             </label>
             <div className="flex">
               <div className="relative w-7/12 flex-shrink-0">
                 <input
                   type="text"
                   id="card-no"
-                  onChange={(e) => Setcardnum(e.target.value)}
+                  onChange={Inputval}
+                  value={data.cardnum}
                   name="cardnum"
-                  required
+                    required
+                    style={{backgroundColor : "transparent"}}
+
                   className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[#3e6553] focus:ring-blue-500"
                   placeholder="xxxx-xxxx-xxxx-xxxx"
                 />
@@ -151,37 +401,111 @@ function Checkout() {
               </div>
             </div>
             <label
+              htmlFor="card-no"
+              className="mt-4 mb-2 block text-sm font-medium"
+            >
+              Contact Number 
+            </label>
+            <div className="flex">
+              <div className="relative w-7/12 flex-shrink-0">
+                <input
+                  type="text"
+                  id="card-no"
+                    onChange={Inputval}
+                    style={{backgroundColor : "transparent"}}
+
+                  value={data.contact}
+                  name="contact"
+                  required
+                  className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[#3e6553] focus:ring-blue-500"
+                  placeholder="YOUR CONTACT NUMBER"
+                />
+                <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                
+                  <Contacticon size={18} color="grey" />
+                </div>
+              </div>
+            </div>
+            <label
+              htmlFor="card-no"
+              className="mt-4 mb-2 block text-sm font-medium"
+            >
+              City Name
+            </label>
+            <div className="flex">
+              <div className="relative w-7/12 flex-shrink-0">
+                <input
+                  type="text"
+                  id="card-no"
+                    onChange={Inputval}
+                    style={{backgroundColor : "transparent"}}
+
+                  value={data.cityname}
+                  name="cityname"
+                  required
+                  className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[#3e6553] focus:ring-blue-500"
+                  placeholder="YOUR CITY NAME"
+                />
+                <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                <Icon icon="fluent:city-20-regular" height={20} />
+
+                </div>
+              </div>
+            </div>
+
+            <label
               htmlFor="billing-address"
               className="mt-4 mb-2 block text-sm font-medium"
             >
-              Billing Address
+              Billing Address {courier.cname}
             </label>
             <div className="flex flex-col sm:flex-row">
               <div className="relative flex-shrink-0 sm:w-full">
                 <input
                   type="text"
                   id="billing-address"
-                  onChange={(e) => Setaddress(e.target.value)}
-                  name="adress"
+                    onChange={Inputval}
+                    style={{backgroundColor : "transparent"}}
+
+                  value={data.address}
+                  name="address"
                   className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[#3e6553] focus:ring-blue-500"
                   placeholder="Street Address"
                 />
                 <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                   <img
                     className="h-4 w-4 object-contain"
-                    src="https://flagpack.xyz/_nuxt/4c829b6c0131de7162790d2f897a90fd.svg"
+                    src="/images/pk.jpg"
                     alt=""
+                    style={{height : "20px" , width : "20px"}}
                   />
                 </div>
               </div>
             </div>
 
             {/* <!-- Total --> */}
-
-            <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Total</p>
-              <p className="text-2xl font-semibold text-gray-900">Rs {price}</p>
+              <AmountContent>
+                <div style={{color : theme ? (theme === "dark" ? "dark" : "light") : (themedata === "dark" ? "dark" : "light")}}>
+                <div className="mt-6 flex items-center justify-between">
+              <p className=" font-medium">Total</p>
+              <p className=" font-semibold">{amount} Rs</p>
             </div>
+            <div className="mt-6 flex items-center justify-between" style={{marginTop : "-0.5px"}}>
+              <p className=" font-medium">GST 5%</p>
+              <p className=" font-semibold">{amount + (amount * (5 / 100))} Rs</p>
+            </div>
+            <div className="mt-6 flex items-center justify-between" style={{marginTop : "-0.5px"}}>
+              <p className=" font-medium">Shipping</p>
+              <p className=" font-semibold">{courier.charges ? courier.charges : 0 } Rs</p>
+            </div>
+            <hr style={{position : "relative" , top : "10px"}}/>
+            <br />
+            <div className="mt-6 flex items-center justify-between" style={{marginTop : "-5px"}}>
+              <p className="text-2xl font-medium">SubTotal</p>
+              <p className="text-2xl font-semibold">{(amount + (amount * (5 / 100))) + courier.charges} Rs</p>
+            </div>
+             </div>
+            </AmountContent>
           </div>
           <button
             className="mt-4 mb-8 w-full rounded-md bg-[#3e6553] px-6 py-3 font-medium text-white"
@@ -190,60 +514,86 @@ function Checkout() {
             Place Order
           </button>
         </div>
-        <div className="px-4 pt-8">
+        </Orderpage>
+        <div className="px-4 pt-8" style={{marginTop : "30px"}} >
           <p className="text-xl font-medium">Order Summary</p>
           <p className="text-gray-400">
             Check your items. And select a suitable shipping method.
           </p>
-          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-            {data2.map((elm, ind) => {
-              return (
-                <>
-                  <div className="flex flex-col rounded-lg bg-white sm:flex-row">
+          <div className="mt-8 space-y-3 rounded-lg border px-2 py-4 sm:px-6" style={{backgroundColor : theme ? (theme !== "dark" ? "#2f3733" : "white") : (themedata == "dark" ? "#2f3733" : "white")}}>
+            {!data2 ? <><h1>hi</h1></> : <>
+              {data2.map((elm , ind) => {
+                return (
+                  <>
+                  <div className="flex flex-col rounded-lg sm:flex-row" style={{paddingBottom : "20px"}}>
                     <img
                       className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                      src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=htmlFormat&fit=crop&w=500&q=60"
-                      alt=""
-                    />
-                    <div className="flex w-full flex-col px-4 py-4">
-                      <span className="font-semibold">{elm.name}</span>
-                      <p className="text-lg font-bold">Rs{elm.price}</p>
-                    </div>
+                      src={elm.pimg}
+                        alt="Plant Image "
+                        style={{height : "100px" , width : "100px"}}
+                      />
+                      <Qtydiv>
+                      <QtyBtn><button className="qtyg" onClick={() => AddQty(elm)} style={{ paddingRight : "35px"}}>➕</button></QtyBtn>
+                    <QtyBtnl>  <button className="qtyl" onClick={() => SubQty(elm)}>➖</button></QtyBtnl>
+                      </Qtydiv>
+                    <div className="flex w-full flex-col px-4 py-4" >
+                        <ContentDiv>
+                        <span className="font-semibold" style={{display : "flex"}}><p style={{paddingRight : "10px" , fontWeight : "bolder" }}>ProductName  </p>{elm.pname}</span>
+                        <p className=" font-bold" style={{  display: "flex" }}>Quantity  <p style={{ fontWeight: "normal", paddingLeft: "10px" }}>{elm.qty}x</p> </p>
+                        <p className=" font-bold" style={{ display : "flex"}}>Price  <p style={{fontWeight : "normal" , paddingLeft : "10px"}}>{elm.pprice}</p> </p>
+                        </ContentDiv>
+
+                        {/* <p className="text-lg font-bold flex"> */}
+  
+                        {/* <Removediv><button onClick={() => SubQty(elm)}>Remove</button></Removediv> */}
+                        <Mobileremove onClick={() => RemoveItem(ind)}><Icon icon="charm:cross" /></Mobileremove>
+                       <Mobilehr> <hr  /></Mobilehr>
+{/* </p> */}
+
+
+                      </div>
+                      
                   </div>
-                </>
-              );
+                  </>
+              )
             })}
+            </>}
           </div>
 
-          <p className="mt-8 text-lg font-medium">Shipping Methods</p>
+          <p className="mt-8 text-lg font-medium">Shipping Methods </p>
           <htmlForm className="mt-5 grid gap-6">
-            <div className="relative">
+            <div className="relative"
+ >
               <input
                 className="peer hidden"
                 id="radio_1"
                 type="radio"
                 name="radio"
-                checked
               />
-              <span className="peer-checked:border-[#3e6553] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+              <span className="peer-checked:border-[#3e6553] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" ></span>
               <label
-                className="peer-checked:border-2 peer-checked:border-[#3e6553] peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                className="peer-checked:border-2 peer-checked:border-[#3e6553] peer-checked:bg-lightgray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
                 htmlFor="radio_1"
               >
                 <img
                   className="w-14 object-contain"
-                  src="https://pbs.twimg.com/profile_images/1653813147063529485/T76j415n_400x400.jpg"
+                  src="/images/tcs.jpg"
                   alt=""
+                 
                 />
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">Fedex Delivery</span>
+                <div className="ml-5"  onClick={() => ShippingDetail("TCS Courier Service" , 1500)}>
+                  <span className="mt-2 font-semibold" >TCS Courier Service</span>
+                  <p className="text-slate-500 text-sm leading-6">
+                   Charges - 1500Rs
+                  </p>
                   <p className="text-slate-500 text-sm leading-6">
                     Delivery: 2-4 Days
                   </p>
+                 
                 </div>
               </label>
             </div>
-            <div className="relative">
+            <div className="relative" >
               <input
                 className="peer hidden"
                 id="radio_2"
@@ -253,16 +603,48 @@ function Checkout() {
               />
               <span className="peer-checked:border-[#3e6553] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
               <label
-                className="peer-checked:border-2 peer-checked:border-[#3e6553] peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                className="peer-checked:border-2 peer-checked:border-[#3e6553] peer-checked:bg-lightgray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
                 htmlFor="radio_2"
               >
                 <img
                   className="w-14 object-contain"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Logo_DB_Schenker.svg/2560px-Logo_DB_Schenker.svg.png"
+                  src="/images/leo.jpg"
                   alt=""
                 />
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">DB Schenker</span>
+                <div className="ml-5"  onClick={() => ShippingDetail("Leopard Courier Service" , 1200)}>
+                  <span className="mt-2 font-semibold">Leopard Courier Service</span>
+                  <p className="text-slate-500 text-sm leading-6">
+                   Charges - 1200Rs
+                  </p>
+                  <p className="text-slate-500 text-sm leading-6">
+                    Delivery: 4-6 Days
+                  </p>
+                </div>
+              </label>
+            </div>
+            <div className="relative" >
+              <input
+                className="peer hidden"
+                id="radio_3"
+                type="radio"
+                name="radio"
+                checked
+              />
+              <span className="peer-checked:border-[#3e6553] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+              <label
+                className="peer-checked:border-2 peer-checked:border-[#3e6553] peer-checked:bg-lightgray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                htmlFor="radio_3"
+              >
+                <img
+                  className="w-14 object-contain"
+                  src="/images/daewoo.jpg"
+                  alt=""
+                />
+                <div className="ml-5" onClick={() => ShippingDetail("Daewoo Courier Service" , 1000)}>
+                  <span className="mt-2 font-semibold">Daewoo Courier Service</span>
+                  <p className="text-slate-500 text-sm leading-6">
+                   Charges - 1000Rs
+                  </p>
                   <p className="text-slate-500 text-sm leading-6">
                     Delivery: 4-6 Days
                   </p>
@@ -272,6 +654,7 @@ function Checkout() {
           </htmlForm>
         </div>
       </div>
+      <PageFooter2/>
     </>
   );
 }

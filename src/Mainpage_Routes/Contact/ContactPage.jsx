@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pagetitle from "../../Contents/Pagetitle";
+import { ErrorToast, SuccessToast } from "../../GlobalTostify";
 const ContactPage = () => {
   const [data, Setdata] = useState({
     email: "",
@@ -12,7 +14,6 @@ const ContactPage = () => {
   const navigate = useNavigate();
   const Inputval = (e) => {
     const { name, value } = e.target;
-
     Setdata((pre) => {
       return { ...pre, [name]: value };
     });
@@ -20,16 +21,17 @@ const ContactPage = () => {
   const ContactUs = () => {
     const { email, subject, message } = data;
     if (!email || !subject || !message) {
-      toast.error("Please fill all the fields");
+      ErrorToast("Please fill all the fields");
     } else {
       const ContactData = localStorage.setItem( "ContactData" , [email , message , subject]);
-      toast.success("Submit Successfully")
+      SuccessToast("Submit Successfully")
       setTimeout(() => navigate("/"), 3000);
       
     }
   };
   return (
     <>
+      <Pagetitle title = {"Contact-Us"} />
       <section className="contact section container" id="contact">
         <div className="contact__container grid">
           <div className="contact__box">
@@ -99,7 +101,7 @@ const ContactPage = () => {
                 </label>
               </div>
             </div>
-            <button className="button button--flex" onClick={() => ContactUs()}>
+            <button className="button button--flex" onClick={ContactUs}>
               Send Message
               <i className="ri-arrow-right-up-line button__icon" />
             </button>

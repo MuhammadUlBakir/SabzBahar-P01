@@ -4,7 +4,7 @@ const PageFooter2 = () => {
   return (
       <>
       <footer className="footer section">
-      <p className="footer__copy">© MJ. All rigths reserved</p>
+      <p className="footer__copy">© MJ Solutions All rigths Reserved</p>
 </footer>
 
       </>

@@ -6,53 +6,18 @@ import "../style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import cookie from "cookie_js";
+import { ErrorToast, SuccessToast } from "../../GlobalTostify";
 const Signin = () => {
     //------------------
   const [data, setData] = useState({
     email: "",
     pass: "",
   });
+  const [loading, Setloading] = useState(false);
     //------------------
     const navigate = useNavigate();
     //------------------
-    const ErrorToast = async (val) => {
-      toast(
-          <div style={{display : "flex"}}>
-          <img
-            src="images/cross.png"
-            style={{ height: "35px" }}
-           
-          ></img>
-          <h5 style={{fontSize : "18px" , fontWeight : "bold" , marginTop : "5px" , marginLeft : "10px" , fontFamily : "sans-serif"}}>{val}</h5>
-        </div>
-      );
-    };
-    const SuccessToast = async (val) => {
-      toast(
-        <div style={{display : "flex"}}>
-          <img
-            src="images/check.png"
-            style={{ height: "35px" }}
-           
-          ></img>
-          <h5 style={{fontSize : "18px" , fontWeight : "bold" , marginTop : "5px" , marginLeft : "10px" , fontFamily : "sans-serif"}}>{val}</h5>
-        </div>
-      );
-    };
-    const WarningToast = async (val) => {
-      toast(
-          <div style={{display : "flex"}}>
-          <img
-            src="images/warning.png"
-            style={{ height: "35px" }}
-           
-          ></img>
-          <h5 style={{fontSize : "18px" , fontWeight : "bold" , marginTop : "5px" , marginLeft : "10px" , fontFamily : "sans-serif"}}>{val}</h5>
-        </div>
-      );
-      };
-    //------------------
-  const handleInputChange = (event) => {
+      const handleInputChange = (event) => {
     const { name, value } = event.target;
     setData((prevData) => ({
       ...prevData,
@@ -61,12 +26,11 @@ const Signin = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
+    Setloading(true);
     const { email, pass } = data;
-  
     try {
       if (email && pass) {
-        const Signindata = await axios.post("https://tiny-pink-loafers.cyclic.app/api/loginuser", {
+        const Signindata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/loginuser", {
           Logindata: data,
         });
         if (
@@ -75,15 +39,23 @@ const Signin = () => {
         ) {
           SuccessToast("Signin Successfully")
           cookie.set("Usertoken", Signindata.data.usertoken);
-          setTimeout(() => navigate("/") , 3000);
+          cookie.set("Useremail", Signindata.data.email, { expires: 1 });
+          cookie.set("Userid", Signindata.data.id);
+          setTimeout(() => navigate("/"), 3000);
+          Setloading(false)
         }
         else if (Signindata.data.status === 200 && Signindata.data.success === true && Signindata.data.role === "admin") {
           SuccessToast("Signin Successfully")
           cookie.set("Admintoken", Signindata.data.admintoken);
-          setTimeout(() => navigate("/admin") , 3000);
+          cookie.set("Useremail", Signindata.data.email, { expires: 1 });
+          setTimeout(() => navigate("/admin"), 3000);
+          Setloading(false)
+
         }
         else {
           ErrorToast("Plz Try Again")
+          Setloading(false)
+
         }
       }
     } catch (error) {
@@ -159,7 +131,7 @@ const Signin = () => {
                   type="button"
                   onClick={handleSubmit}
                 >
-                  Sign In
+                  {loading === false ? <><p style={{width : "60px"}}>Sign In</p></> : <><img src="/images/elp.gif" style={{height : "30px" }} alt="" /></>}
                 </button>
                 <a
                   className="inline-block align-baseline font-bold text-sm text-[#3e6553] cursor-pointer"

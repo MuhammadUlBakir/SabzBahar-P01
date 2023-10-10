@@ -1,17 +1,22 @@
 import React from "react";
+import Pagetitle from "../../Contents/Pagetitle";
+import { useContext } from "react";
+import { ThemeContext } from "../Test/Testpage";
 
 const About = () => {
   const Test = localStorage.getItem("cartData10");
   const Data = JSON.parse(Test);
   console.log(Data);
+ 
   return (
     <>
+      <Pagetitle title = {"AboutPage"} />
       <section className="about section container" id="about">
         <div className="about__container grid">
           <img src="images/about.png" alt className="about__img" />
           <div className="about__data">
             <h2 className="section__title about__title">
-              Who we really are <br /> why choose us
+              Who we really are <br /> why choose us 
             </h2>
             <p className="about__description">
               We have over 4000+ unbiased reviews and our customers trust our

@@ -10,11 +10,9 @@ import Product_Filter from "../Product/Product_Filter";
 import Wishlist from "../nav_component/wishlist_component/Wishlist";
 import Cart_Icon from "../nav_component/cart_component/Cart_Icon";
 import About from "../Mainpage_Routes/About/AboutPage";
-import ProductsPage from "../Mainpage_Routes/Product/ProductsPage";
 import PageQuestions from "../Mainpage_Routes/QA/PageQuestions";
 import Masterpage from "./Masterpage";
-import Testpage from "../Mainpage_Routes/Test/Testpage";
-import Orderdetail from "../nav_component/Order/Orderdetail";
+import Orderdetail from "../Mainpage_Routes/Order/Orderdetail";
 import Product_details from "../Product/product_details/Product_details";
 import Product_page from "../Product/Product_page/Product_page";
 import Shopping_Cart from "../Product/Shopping_Cart";
@@ -22,6 +20,13 @@ import Checkout from "../Product/Checkout";
 import Plants from "../Mainpage_Routes/Plants/plants";
 import Ass from "../Mainpage_Routes/Accessories/Ass";
 import ContactPage from "../Mainpage_Routes/Contact/ContactPage";
+import RentalCategories from "../Mainpage_Routes/Rent/RentalCategories";
+import ProductTest from "../Mainpage_Routes/Product/ProductTest";
+import Profile from "../Profile";
+import OrderHistory from "../Mainpage_Routes/Order/OrderHistory";
+import Wishlistpage from "../Mainpage_Routes/Wishlist/wishlist";
+import RentPage from "../Mainpage_Routes/Rent/Rentpage";
+import RentCheckout from "../Mainpage_Routes/Rent/RentCheckout";
 
 const Pagebound2 = () => {
   return (
@@ -35,7 +40,7 @@ const Pagebound2 = () => {
           <Route path = "/contact" element = {<ContactPage/>} />
          </Route>
            {/* ------------ Products ----------------- */}
-           <Route path="/product" element={<Product_page/>} />
+           <Route path="/product" element={<ProductTest/>} />
 
           {/* ----------- User Auth */}
           <Route path="/signin" element={<Signin />} />
@@ -45,15 +50,22 @@ const Pagebound2 = () => {
           {/* ---------- Filter Products Component -----------  */}
           <Route path="/filter/:cname" element={<Product_Filter/>}/>
           <Route path="/wish" element={<Wishlist />} />
-          <Route path="/carticon" element = {<Cart_Icon/>}/>
+          <Route path="/carticon" element={<Cart_Icon />} />
+          <Route path="/wishlistpage" element = {<Wishlistpage/>}/>
           {/* -------------- Order ------------------ */}
           <Route path="/orderdetail" element = {<Orderdetail/>}/>
-          <Route path="/productd/:id" element = {<Product_details/>}/>
+          <Route path="/productdetail/:Productid" element = {<Product_details/>}/>
           <Route path="/productpage" element = {<Product_page/>}/>
           <Route path="/shoppingcart" element = {<Shopping_Cart/>}/>
-          <Route path="/checkout/:price" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/plants" element={<Plants />} />
-          <Route path="/ass" element = {<Ass/>}/>
+          <Route path="/ass" element={<Ass />} />
+          <Route path="/orderhistory" element = {<OrderHistory/>}/>
+          {/* -------------- Rental --------------- */}
+          <Route path="/rent" element={<RentPage />} />
+          <Route path="/rentcheckout" element = {<RentCheckout/>}/>
+          {/* --------------- Profile ------------------ */}
+          <Route path="/userprofile" element = {<Profile/>} />
       </Routes>
       </BrowserRouter>
     </>

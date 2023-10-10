@@ -14,7 +14,6 @@ const CartIcon = styled.div`
  
  
   height: 30px;
-  background-color: #f0f0f0;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -22,7 +21,7 @@ const CartIcon = styled.div`
   cursor: pointer;
 `;
 
-function Cart_Icon() {
+function Cart_Icon({theme}) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -32,9 +31,9 @@ function Cart_Icon() {
     return (
         <CartWrapper>
             <CartIcon onClick={toggleDropdown}>
-                <Icon icon="mdi:cart-outline" style={{ fontSize: '22px' }} />
+                <Icon icon="mdi:cart-outline" style={{ fontSize: '22px' , backgroundColor : "transparent" }} />
             </CartIcon>
-            {isDropdownOpen && <CartDropdown />}
+            {isDropdownOpen && <CartDropdown theme = {theme} />}
         </CartWrapper>
     );
 }

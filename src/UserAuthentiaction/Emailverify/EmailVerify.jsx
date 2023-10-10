@@ -5,49 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import "../style.css";
 import { useNavigate } from "react-router-dom";
 import cookie from "cookie_js";
+import { ErrorToast, SuccessToast, WarningToast } from "../../GlobalTostify";
 const EmailVerify = () => {
   const [email, Setemail] = useState("");
   //-------------
   const navigate = useNavigate();
   //----------------------------
-  const ErrorToast = async (val) => {
-    toast(
-        <div style={{display : "flex"}}>
-        <img
-          src="images/cross.png"
-          style={{ height: "35px" }}
-         
-        ></img>
-        <h5 style={{fontSize : "18px" , fontWeight : "bold" , marginTop : "5px" , marginLeft : "10px" , fontFamily : "sans-serif"}}>{val}</h5>
-      </div>
-    );
-  };
-  const SuccessToast = async (val) => {
-    toast(
-      <div style={{display : "flex"}}>
-        <img
-          src="images/check.png"
-          style={{ height: "35px" }}
-         
-        ></img>
-        <h5 style={{fontSize : "18px" , fontWeight : "bold" , marginTop : "5px" , marginLeft : "10px" , fontFamily : "sans-serif"}}>{val}</h5>
-      </div>
-    );
-  };
-  const WarningToast = async (val) => {
-    toast(
-        <div style={{display : "flex"}}>
-        <img
-          src="images/warning.png"
-          style={{ height: "35px" }}
-         
-        ></img>
-        <h5 style={{fontSize : "18px" , fontWeight : "bold" , marginTop : "5px" , marginLeft : "10px" , fontFamily : "sans-serif"}}>{val}</h5>
-      </div>
-    );
-    };
-    //-------------
-  const handleSubmit = async (event) => {
+   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       if (email) {

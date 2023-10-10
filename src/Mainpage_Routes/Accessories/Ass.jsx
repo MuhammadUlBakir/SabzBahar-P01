@@ -1,7 +1,7 @@
 import React from 'react'
-import PageHeader from '../../Contents/PageHeader'
 import { useNavigate } from 'react-router-dom';
 import cookie from 'cookie_js'
+import Checout from "remixicon-react/Search2LineIcon"
 
 const Ass = () => {
     const navigate = useNavigate();
@@ -15,22 +15,22 @@ const Ass = () => {
       }
   return (
       <>
-          <PageHeader />
           <section className="product section container" id="products">
-      <h2 className="section__title-center">
-        Check out our <br /> Plant Accessories
+      <h2 className="section__title-center" style={{fontWeight : "bold"}}>
+        Plant Accessories
       </h2>
-      <p className="product__description">
+      {/* <p className="product__description">
         Here have top selected P categories from our showroom, all are in excellent 
         shape and has a long life span. Buy and enjoy best quality.
-      </p>
+      </p> */}
       <div className="product__container grid">
         <article className="product__card" style={{cursor : "pointer"}} onClick={() => Checktoken("Fertilizer")}>
           <div className="product__circle" />
-          <img src="images/fert.png" style={{height : "230px" , width : "230px"}} alt className="product__img" />
+          <img src="images/fert.png"  alt className="product__img" />
           <h3 className="product__title">Fertilizer </h3>
           <span className="product__price" style={{fontSize : "13px"}}>Check Out</span>
           <button className="button--flex product__button">
+            <Checout/>
             
           </button>
         </article>
@@ -40,6 +40,7 @@ const Ass = () => {
           <h3 className="product__title">Plants Pots</h3>
           <span className="product__price" style={{fontSize : "13px"}}>Check Out</span>
           <button className="button--flex product__button">
+            <Checout/>
           </button>
         </article>
         <article className="product__card" style={{cursor : "pointer"}} onClick={() => Checktoken("Shovel")}>
@@ -48,6 +49,7 @@ const Ass = () => {
           <h3 className="product__title">Shovel</h3>
           <span className="product__price" style={{fontSize : "13px"}}>Check Out</span>
           <button className="button--flex product__button">
+            <Checout/>
           </button>
         </article>
        

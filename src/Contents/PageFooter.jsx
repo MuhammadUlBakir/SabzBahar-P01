@@ -1,20 +1,31 @@
 import React from 'react'
+import { useState } from 'react'
+import { ErrorToast, InfoToast, SuccessToast, WarningToast } from '../GlobalTostify';
 
 const PageFooter = () => {
+  const [data, Setdata] = useState("");
+  const Checkdata = () => {
+    if (!data) {
+      ErrorToast("Enter Your Email");
+      Setdata("");
+    } else {
+      SuccessToast("Subscribe Successfully");
+    }
+  }
   return (
       <>
       <footer className="footer section">
   <div className="footer__container container grid">
     <div className="footer__content">
       <a href="#" className="footer__logo">
-        <i className="ri-leaf-line footer__logo-icon" /> Plantex
+       <img src="/images/smp3logo.png" alt="" style={{height : "50px"}}/> SabzBahar
       </a>
       <h3 className="footer__title">
         Subscribe to our newsletter <br /> to stay update
       </h3>
       <div className="footer__subscribe">
-        <input type="email" placeholder="Enter your email" className="footer__input" />
-        <button className="button button--flex footer__button">
+        <input type="email" placeholder="Enter your email" className="footer__input" onChange={(e) => Setdata(e.target.value)} value={data} required/>
+        <button className="button button--flex footer__button" onClick={Checkdata}>
           Subscribe
           <i className="ri-arrow-right-up-line button__icon" />
         </button>
@@ -23,9 +34,9 @@ const PageFooter = () => {
     <div className="footer__content">
       <h3 className="footer__title">Our Address</h3>
       <ul className="footer__data">
-        <li className="footer__information">1234 - Peru</li>
-        <li className="footer__information">La Libertad - 43210</li>
-        <li className="footer__information">123-456-789</li>
+        <li className="footer__information">Nursery 15-A, Gulberg III,</li>
+        <li className="footer__information">Lahore, Pakistan - 17000</li>
+        <li className="footer__information">+92-3313505302</li>
       </ul>
     </div>
     <div className="footer__content">
@@ -50,14 +61,14 @@ const PageFooter = () => {
         We accept all credit cards
       </h3>
       <div className="footer__cards">
-        <img src="assets/img/card1.png" alt className="footer__card" />
-        <img src="assets/img/card2.png" alt className="footer__card" />
-        <img src="assets/img/card3.png" alt className="footer__card" />
-        <img src="assets/img/card4.png" alt className="footer__card" />
+        <img src="/images/card1.png" alt className="footer__card" />
+        <img src="/images/card2.png" alt className="footer__card" />
+        <img src="/images/card3.png" alt className="footer__card" />
+        <img src="/images/card4.png" alt className="footer__card" />
       </div>
     </div>
   </div>
-  <p className="footer__copy">© MJ. All rigths reserved</p>
+  <p className="footer__copy">© MJ Solutions. All rigths reserved</p>
 </footer>
 
       </>

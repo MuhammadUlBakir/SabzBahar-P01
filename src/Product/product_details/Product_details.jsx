@@ -1,281 +1,302 @@
-import React from "react";
-import Styled from "styled-components";
-import Pageheader from "../../Contents/PageHeader";
-import PageFooter2 from "../../Contents/PageFooter2";
-import PageFooter from "../../Contents/PageFooter";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
-import { useState } from "react";
-const StyledDiv = Styled.div`
-@import url("https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300");
+import React from 'react';
+import styled from 'styled-components';
+import PageHeader from '../../Contents/PageHeader';
+import PageFooter from '../../Contents/PageFooter';
+import PageFooter2 from '../../Contents/PageFooter2';
+import { useParams } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
+import axios from 'axios';
+import cookie from "cookie_js";
+import Hearticon from "remixicon-react/HeartFillIcon"
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { ErrorToast, SuccessToast } from '../../GlobalTostify';
 
-main {
-  max-width: 720px;
-  margin: 5% auto;
-}
+const StyledDiv = styled.div`
+  @import url('https://fonts.googleapis.com/css?family=Raleway:400,300,500,700');
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: #aedaa6;
+    font-family: 'Raleway';
+  }
+  .card {
+    width: 40%;
+    background: white;
+    margin: 0 auto;
+    border-radius:17px ;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    transition: all 0.3s;
+    &:hover {
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+   
+    nav {
+      width: 100%;
+      color: grey;
+      text-transform: uppercase;
+      padding: 20px;
+      border-bottom: 2px solid #efefef;
+      font-size: 12px;
+      svg.heart {
+        height: 24px;
+        width: 24px;
+        float: right;
+        margin-top: -3px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        &:hover {
+          fill: red;
+        }
+      }
+      svg.arrow {
+        float: left;
+        height: 15px;
+        width: 15px;
+        margin-right: 10px;
+      }
+    }
+    .photo {
+      padding: 20px;
+      text-align: center;
+      img {
+        max-width: 100%;
+        height: 370px;
+      }
+    }
+    .description {
+      padding: 20px;
+      border-left: 2px solid #efefef;
+      h1 {
+        color: #515151;
+        font-weight: 300;
+        padding-top: 15px;
+        margin: 0;
+        font-size: 24px;
+      }
+      h2 {
+        color: #515151;
+        margin: 0;
+        font-size: 35px;
 
-.card {
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
-  transition: 200ms;
-  background: #fff;
-}
-.card .card__title {
-  display: flex;
-  align-items: center;
-  padding: 30px 40px;
-}
-.card .card__title h3 {
-  flex: 0 1 200px;
-  text-align: right;
-  margin: 0;
-  color: #252525;
-  font-family: sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-.card .card__title .icon {
-  flex: 1 0 10px;
-  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);  color: #fff;
-  padding: 10px 10px;
-  transition: 200ms;
-}
-.card .card__title .icon > a {
-  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
-}
-.card .card__title .icon:hover {
-  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);}
-.card .card__body {
-  padding: 0 40px;
-  display: flex;
-  flex-flow: row no-wrap;
-  margin-bottom: 25px;
-}
-.card .card__body > .half {
-  box-sizing: border-box;
-  padding: 0 15px;
-  flex: 1 0 50%;
-}
-.card .card__body .featured_text h1 {
-  margin: 0;
-  padding: 0;
-  font-weight: 800;
-  font-family: "Montserrat", sans-serif;
-  font-size: 64px;
-  line-height: 50px;
-  color: #181e28;
-}
-.card .card__body .featured_text p {
-  margin: 0;
-  padding: 0;
-}
-.card .card__body .featured_text p.sub {
-  font-family: "Montserrat", sans-serif;
-  font-size: 26px;
-  text-transform: uppercase;
-  color: #686e77;
-  font-weight: 300;
-  margin-bottom: 5px;
-}
-.card .card__body .featured_text p.price {
-  font-family: "Fjalla One", sans-serif;
-  color: #252525;
-  font-size: 26px;
-}
-.card .card__body .image {
-  padding-top: 15px;
-  width: 100%;
-}
-.card .card__body .image img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-.card .card__body .description {
-  margin-bottom: 25px;
-}
-.card .card__body .description p {
-  margin: 0;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
-  line-height: 27px;
-  font-size: 16px;
-  color: #555;
-}
-.card .card__body span.stock {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  color: #a1cc16;
-}
-.card .card__body .reviews .stars {
-  display: inline-block;
-  list-style: none;
-  padding: 0;
-}
-.card .card__body .reviews .stars > li {
-  display: inline-block;
-}
-.card .card__body .reviews .stars > li .fa {
-  color: #f7c01b;
-}
-.card .card__body .reviews > span {
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-  margin-left: 5px;
-  color: #555;
-}
-.card .card__footer {
-  padding: 30px 40px;
-  display: flex;
-  flex-flow: row no-wrap;
-  align-items: center;
-  position: relative;
-}
-.card .card__footer::before {
-  content: "";
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 40px;
-  width: calc(100% - 40px);
-  height: 3px;
-  background: #115dd8;
-  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);}
-.card .card__footer .recommend {
-  flex: 1 0 10px;
-}
-.card .card__footer .recommend p {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 14px;
-  color: #555;
-}
-.card .card__footer .recommend h3 {
-  margin: 0;
-  font-size: 20px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: green;
-}
-.card .card__footer .action button {
-  cursor: pointer;
-  border: 1px solid green;
-  padding: 14px 30px;
-  border-radius: 200px;
-  color: green;
-  background: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-  transition: 200ms;
-}
-.card .card__footer .action button:hover {
-  background: #fff;
-  color: #115dd8;
+        text-transform: uppercase;
+        font-weight: 600;
+        
+      }
+      h4 {
+        margin: 0;
+        color: #727272;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 15px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 20px;
+        color: #727272;
+        padding: 10px 0;
+        margin: 0;
+      }
+      button {
+        outline: 0;
+        border: 0;
+        background: none;
+        border-radius : 15px;
+        border: 1px solid #d9d9d9;
+        padding: 8px 0px;
+        margin-bottom: 15px;
+        color: white;
+        text-transform: uppercase;
+        width: 100%;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        &:hover {
+          border: 1px solid #aedaa6;
+          color: #aedaa6;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  @media (max-width: 767.98px) {
+    .card {
+        width: 100%;
+        background: white;
+        margin: 0 auto;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        transition: all 0.3s;
+        &:hover {
+          box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
 }
 `;
+
 const Product_details = () => {
-  const { id } = useParams();
-  const [data, Setdata] = useState([]);
-  const Testfunc = async () => {
+  const [data, Setdata] = useState("");
+  const [img , Setimg] = useState("")
+  const { Productid } = useParams();
+  const [loading, Setloading] = useState(false);
+  const [wished, Setwished] = useState(false);
+  const [data2, Setdata2] = useState([]);
+  const [id, Setid] = useState([]);
+  const navigate = useNavigate();
+  //----------------
+  //---------------- /api/getproduct
+  const Getproductdetail = async () => {
+    const userid = cookie.get("Userid");
+    Setloading(true);
     try {
-      const Getproduct = await axios.get("https://good-cyan-angler-wrap.cyclic.cloud/api/getproduct");
-      const Filterproduct = Getproduct.data.Allproduct.filter(elm => elm._id === id);
-      Setdata(Filterproduct)
+      if (Productid) {
+        const productdata = await axios.get("/api/getproduct");
+        const details = productdata.data.Productdata.filter((elm) => elm._id === Productid);
+        Setdata2(details);
+        Setloading(false);
+        
+        details.map((elm) => {
+          Setdata(elm);
+          Setimg(elm.secondaryimage.url)
+         
+        })
+      
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //-----------------
+  const Getwishdata = async () => {
+    try {
+      const userid = cookie.get("Userid");
+      const getwishdata = await axios.post("/api/getwishdata", { userid: userid });
+      const authwishlist = getwishdata.data.getWishlistdata.whishproducts.filter(elm => elm.pid === Productid);
+      if (authwishlist[0]) {
+        Setwished(true)
+      } else {
+        Setwished(false)
+      }
     } catch (error) {
       console.log(error);
     }
   }
-  useEffect(() => {
-    if (id) {
-      Testfunc();
+  //-----------------
+  const Addtocart = async () => {
+    try {
+      const cartdata = localStorage.getItem("Cart");
+      const pdata = cartdata ? JSON.parse(cartdata) : ""
+      const findindex = pdata.findIndex(elm => elm.id === data._id);
+      console.log(findindex)
+      if (findindex !== -1) {
+        pdata[findindex].qty += 1,
+          pdata[findindex].pprice += data.productprice
+        SuccessToast("Quantity Added")
+      } else {
+        const cartproduct = {
+        id: data._id,
+        pimg: data.mainimage.url,
+        pname: data.productname,
+        pprice: data.productprice,
+        qty: 1,
+        }
+        pdata.push(cartproduct)
+        SuccessToast("Added to Cart")
+      }
+      localStorage.setItem("Cart", JSON.stringify(pdata));
+    } catch (error) {
+      console.log(error);
+    }
   }
-  },[])
+  //-----------------
+  const Wishlist = async () => {
+  try {
+    const userid = cookie.get("Userid");
+    if (userid && Productid) {
+      const Addwishlist = await axios.post("/api/productwishlist", { userid, productid: Productid });
+      if (Addwishlist.data.success === true && Addwishlist.data.status === 201) {
+        // Getproductdetail();
+        SuccessToast("Wishlisted Successfully");
+        Getwishdata();
+      } else if (Addwishlist.data.status === 402) {
+        ErrorToast("Already Wishlisted");
+      }else {
+        // Setwished(true)
+        ErrorToast("Plz Try Again")
+      }
+    } else {
+      ErrorToast("Plz Try Again")
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  }
+ 
+  //-----------------
+  useEffect(() => {
+    Getproductdetail();
+    Getwishdata()
+    
+  }, [])
+ 
   return (
     <>
+      <PageHeader/>
       <StyledDiv>
-        <body>
-          <main>
-            <Pageheader />
-            {/* <h1 className='text-center' style={{ fontWeight : "bolder" , fontSize : "40px" , marginTop : "-30px"}}>Product Deatail</h1> */}
-            {data.map((elm, ind) => {
-              return (
-                <>
-                 <div className="card">
-              <div className="card__title">
-                <div className="icon">
-                  <a href="#">
-                    <i className="fa fa-arrow-left" />
-                  </a>
-                </div>
-                <h3>Product Deatail</h3>
-              </div>
-              <div className="card__body">
-                <div className="half">
-                  <div className="featured_text">
-                          <h1>{elm.productname}</h1>
-                          <p className="sub">{elm.productcategory} Plant</p>
-                          <p className="price">Rs{elm.productprice}</p>
-                  </div>
-                  <div className="image">
-                    <img
-                      src={elm.secondaryimage.url}
-                      alt
-                    />
-                  </div>
-                </div>
-                <div className="half">
-                        <div className="description">
-                          <h4 style={{fontWeight : "bolder"}}>Description : </h4>
-                    <p>
-                     {elm.longdescription}
-                    </p>
-                  </div>
-                  <span className="stock">
-                    <i className="fa fa-pen" /> In stock
-                  </span>
-                  <div className="reviews">
-                    <ul className="stars">
-                      <li>
-                        <i className="fa fa-star" />
-                      </li>
-                      <li>
-                        <i className="fa fa-star" />
-                      </li>
-                      <li>
-                        <i className="fa fa-star" />
-                      </li>
-                      <li>
-                        <i className="fa fa-star" />
-                      </li>
-                      <li>
-                        <i className="fa fa-star-o" />
-                      </li>
-                    </ul>
-                    <span>(64 reviews)</span>
-                  </div>
-                </div>
-              </div>
-              <div className="card__footer">
-                <div className="recommend">
-                  <p>Category of</p>
-                        <h3>{elm.productcategory}s Plant</h3>
-                </div>
-                <div className="action">
-                  <button type="button" style={{fontWeight : "bolder"}}>Add to cart</button>
-                </div>
-              </div>
-            </div>
-                </>
-             )
-           })}
-          </main>
-        </body>
+        <div className="card" style={{marginTop : "100px"}}>
+          <nav>
+            <svg
+              
+              className="arrow"
+              version="1.1"
+              viewBox="0 0 512 512"
+              width="15px"
+              xmlSpace="preserve"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+            >
+              <polygon points="352,115.4 331.3,96 160,256 331.3,416 352,396.7 201.5,256 " stroke="#727272" />
+            </svg>
+            <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>  Back to all Plants </p>
+            
+           {wished === true ? <><Hearticon  className='heart' style={{marginTop : "-21px"}} color='red' /></> : <> <svg
+              style={{marginTop : "-21px" }}
+              className="heart"
+              version="1.1"
+              viewBox="0 0 512 512"
+              width="15px"
+              xmlSpace="preserve"
+              stroke="#727272"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                d="M340.8,98.4c50.7,0,91.9,41.3,91.9,92.3c0,26.2-10.9,49.8-28.3,66.6L256,407.1L105,254.6c-15.8-16.6-25.6-39.1-25.6-63.9  c0-51,41.1-92.3,91.9-92.3c38.2,0,70.9,23.4,84.8,56.8C269.8,121.9,302.6,98.4,340.8,98.4 M340.8,83C307,83,276,98.8,256,124.8  c-20-26-51-41.8-84.8-41.8C112.1,83,64,131.3,64,190.7c0,27.9,10.6,54.4,29.9,74.6L245.1,418l10.9,11l10.9-11l148.3-149.8  c21-20.3,32.8-47.9,32.8-77.5C448,131.3,399.9,83,340.8,83L340.8,83z"
+                stroke="#727272"
+              />
+            </svg></>}
+          </nav>
+          <div className="photo" style={{display : "flex" , justifyContent : "center"}}>
+            <img src={img} alt="Plant" />
+          </div>
+          <div className="description">
+            <h2>{data.productname}</h2>
+            <h4>{data.productcategory} Plant</h4>
+            <h1 style={{ fontSize: "35px" }}>{data.productprice}Rs</h1>
+            <h2 style={{fontSize : "15px" , marginTop : "10px"}}>Description</h2>
+            <p style={{marginTop  :"-5px"}}>
+             {data.longdescription}
+            </p>
+            <button style={{backgroundColor : "#365949"}} onClick={Addtocart}>Add to Cart</button>
+            <button style={{ backgroundColor: "#2f3733", color: "" }} onClick={Wishlist}>{wished === true ? "Wishlisted" : "Wishlist"}</button>
+          </div>
+        </div>
       </StyledDiv>
-      <PageFooter />
+      <div style={{marginTop : "-130px"}}>
+      <PageFooter2/>
+      </div>
     </>
   );
 };

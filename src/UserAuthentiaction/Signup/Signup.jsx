@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../style.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ErrorToast, SuccessToast, WarningToast } from '../../GlobalTostify';
 function Signup() {
 // ------------------
     const [formData, setFormData] = useState({
@@ -29,24 +30,24 @@ function Signup() {
         const { username, email, number, password, confirm_password } = formData;
         try {
             if (!username || !email || !number || !password || !confirm_password) {
-                toast.warning("Plz fill All Fields")
+               WarningToast("Plz fill All Fields")
             } else {
                 if (password === confirm_password) {
                     const Signupdata = await axios.post("https://tiny-pink-loafers.cyclic.app/api/signupdata", { Signupdata: formData });
                     if (Signupdata.data.success === false && Signupdata.data.status === 4011) {
-                        toast.error("Invaid Cridentials")
+                        ErrorToast("Invaid Cridentials")
                     }else if (Signupdata.data.success === false && Signupdata.data.status === 4012) {
-                        toast.error("Invaid Cridentials")
+                        ErrorToast("Invaid Cridentials")
                     }else if (Signupdata.data.success === false && Signupdata.data.status === 4013) {
-                        toast.error("Invaid Cridentials")
+                        ErrorToast("Invaid Cridentials")
                     }else if (Signupdata.data.success === false && Signupdata.data.status === 402) {
-                        toast.error("Plz try Again");
+                        ErrorToast("Plz try Again");
                     } else {
-                        toast.success("Signup Successfully");
+                       SuccessToast("Signup Successfully");
                         setTimeout(() => navigate("/signin"), 4000); 
                     }
                 } else {
-                    toast.warning("Password Not Match");
+                   WarningToast("Password Not Match");
                 }
             }
         } catch (error) {

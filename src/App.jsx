@@ -5,8 +5,13 @@ import Pagebound2 from './PageRoutes/Pagebound';
 const App = () => {
   return (
     <>
-      
-     <Pagebound2/>
+      <Helmet>
+        <script type="module" src="../assets/js/scrollreveal.min.js">
+
+      </script>
+
+      </Helmet>
+      <Pagebound2/>
 
     </>
   )

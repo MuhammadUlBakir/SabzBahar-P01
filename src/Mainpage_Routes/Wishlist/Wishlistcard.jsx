@@ -349,7 +349,7 @@ const Wishlistcard = (props) => {
           {" "}
           <StyledDiv>
             <body>
-              <div class="container">
+              <div class="container" data-aos = "fade-up" data-aos-duration = "3000">
                 {pdata.map((elm, ind) => {
                   return (
                     <>

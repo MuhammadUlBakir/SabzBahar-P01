@@ -65,6 +65,7 @@ export default function RentPage () {
     const [loading, Setloading] = useState(false);
   const [data, Setdata] = useState([]);
   const [cnum, Setcnum] = useState([]);
+  const userid = cookie.get("Userid");
   const Navigate = useNavigate();
     //------------------------
     const WishlistItems = async () => {
@@ -81,9 +82,9 @@ export default function RentPage () {
       }
   } 
   //----------------------------
-  const Cartnum = () => {
-    const rentdata = localStorage.getItem("RentData1");
-    rentdata ? Setcnum(JSON.parse(rentdata)) : []
+  const Cartnum = async () => {
+    const rentdata = await axios.post("/api/getrent", { userid });
+    rentdata ? Setcnum(rentdata.data.rentdata.rentcartdata) : []
   }
     //---------------------------- 
     useEffect(() => {

@@ -258,13 +258,15 @@ const CardPreview = (props) => {
   const [pdata, Setpdata] = useState([]);
   const [fltrdata, Setfltrdata] = useState([]);
   const [resdata, Setresdata] = useState([]);
+  const [loading, Setloading] = useState(false);
   //---------------------------
   const GetallCart = () => {
     const Cartdata = localStorage.getItem("Cart");
     Cartdata ? Setdata(JSON.parse(Cartdata)) : [];
   };
   //---------------------------
-  const AddtoCart = (val) => {
+  const AddtoCart = async (val) => {
+    const userid = cookie.get("Userid");
     const FindIndex = data.findIndex((item) => item.id === val._id);
     if (FindIndex !== -1) {
       data[FindIndex].qty += 1;
@@ -281,6 +283,7 @@ const CardPreview = (props) => {
       data.push(NewCart);
       SuccessToast("Added To Cart" , "top-center")
     }
+    const Cart = await axios.post("/api/cart", { userid, data2: data });
     localStorage.setItem("Cart", JSON.stringify(data));
   };
   //----------------------------
@@ -360,7 +363,7 @@ const CardPreview = (props) => {
                           style={{ cursor: "pointer" }}
                         >
                           <img
-                            src={elm.mainimage.url}
+                            src={elm.mainimage.url ? elm.mainimage.url : <><img src="/images/transloader.gif" alt="" /></>}
                             style={{ height: "200px", width: "200px" }}
                             alt="nike-air-shoe"
                           />

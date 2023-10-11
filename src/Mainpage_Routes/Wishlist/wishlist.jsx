@@ -167,7 +167,7 @@ export default function Wishlistpage () {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24" data-aos = "fade-down" data-aos-duration = "3000">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900" style={{color : "grey"}}>Wishlist Items</h1>
 
             <div className="flex items-center">

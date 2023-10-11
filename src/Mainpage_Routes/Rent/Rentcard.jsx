@@ -299,12 +299,12 @@ const Rentcard = (props) => {
     }
   };
   //---------------------------
-  const Getrentcart = () => {
-    const rentdata = localStorage.getItem("RentData1");
-    rentdata ? Setrdata(JSON.parse(rentdata)) : []
+  const Getrentcart = async () => {
+    const rentdata = await axios.post("/api/getrent", { userid });
+    rentdata ? Setrdata(rentdata.data.rentdata.rentcartdata) : []
   }
     //---------------------------
-    const RentCart = (elm , time , rentcharge ) => {
+    const RentCart = async (elm , time , rentcharge ) => {
         try {
           const findindex = rdata.findIndex((item) => item.rid === elm._id);
           if (findindex !== -1) {
@@ -324,6 +324,7 @@ const Rentcard = (props) => {
             rdata.push(rentdata);
             SuccessToast("Rent Product Added" , "top-center")
           }
+          await axios.post("/api/rentcart", { userid, data: rdata});
           localStorage.setItem("RentData1", JSON.stringify(rdata));
 
         } catch (error) {

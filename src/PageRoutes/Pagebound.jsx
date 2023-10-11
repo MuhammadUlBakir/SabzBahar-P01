@@ -27,13 +27,15 @@ import OrderHistory from "../Mainpage_Routes/Order/OrderHistory";
 import Wishlistpage from "../Mainpage_Routes/Wishlist/wishlist";
 import RentPage from "../Mainpage_Routes/Rent/Rentpage";
 import RentCheckout from "../Mainpage_Routes/Rent/RentCheckout";
+import Errorpage from "../Mainpage_Routes/ErrrorPage/Errorpage";
 
 const Pagebound2 = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="*" element = {<Errorpage/>}/>
           <Route element={<Masterpage />}>
           <Route path="/about" element={<About />} />
           <Route path="/qa" element={<PageQuestions />} />

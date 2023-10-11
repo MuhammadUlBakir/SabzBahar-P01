@@ -159,7 +159,9 @@ function RentCheckout() {
         price : ""
     })
     const navigate = useNavigate();
-    const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
+  const userid = cookie.get("Userid");
+  
 //   const [courier, Setcourier] = useState({
 //     cname: "",
 //     charges: ""
@@ -174,12 +176,15 @@ function RentCheckout() {
 //   //--------------------
   const Cartdata = async () => {
     try {
-      const existingCartData = localStorage.getItem("RentData1");
-        existingCartData ? Setrentdata(JSON.parse(existingCartData)) : navigate("/");
+      localStorage.removeItem("RentData1");
+      //---------------
+      const rentcartdata = await axios.post("/api/getrent", { userid });
+      rentcartdata ? Setrentdata(rentcartdata.data.rentdata.rentcartdata) : navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
+  
 //   //--------------------
 //   const PrevOrderInfo = async () => {
 //     const email = cookie.get("Useremail");
@@ -247,29 +252,30 @@ function RentCheckout() {
 //     });
 //   }
 //   //---------------------------
-  const AddQty = (val) => {
+  const AddQty = async (val) => {
     const findindex = rentdata.findIndex(elm => elm.rid === val.rid);
     rentdata[findindex].qty += 1;
-    localStorage.setItem("RentData1", JSON.stringify(rentdata));
+    await axios.post("/api/rentcart", { userid, data: rentdata });
     Cartdata();
 
   }
-  const SubQty = (val) => {
+  const SubQty = async (val) => {
     const findindex = rentdata.findIndex(elm => elm.rid === val.rid);
     if (rentdata[findindex].qty > 1) {
       rentdata[findindex].qty -= 1;
     } else {
       WarningToast("Limit Exceed")
     }
-    localStorage.setItem("RentData1", JSON.stringify(rentdata));
+    await axios.post("/api/rentcart", { userid, data: rentdata });
     Cartdata();
   }
 //   //---------------------------
-  const RemoveItem = (index) => {
+  const RemoveItem = async (index) => {
     rentdata.splice(index, 1);
-    localStorage.setItem('RentData1', JSON.stringify(rentdata));
-    Cartdata();
+    await axios.post("/api/rentcart", { userid, data: rentdata });
     SuccessToast("Item Removed", 3000);
+    Cartdata();
+    
   }
 //   //---------------------------
 //   const Currtheme = () => {

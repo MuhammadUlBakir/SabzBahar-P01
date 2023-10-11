@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
+import PageFooter2 from "../../Contents/PageFooter2";
 const Div = Styled.div`
 *,
 *::before,
@@ -288,7 +289,7 @@ const OrderHistory = () => {
       <Div>
         
 
-        <div className="timeline" style={{marginTop : "120px"}}>
+        <div className="timeline" style={{marginTop : "120px"}} data-aos = "fade-up" data-aos-duration = "3000">
           <div>
             {data.map((elm, ind) => {
               const date = elm.createdAt.slice(0, 10);
@@ -326,6 +327,7 @@ const OrderHistory = () => {
           </div>
         </div>
       </Div>
+      <PageFooter2/>
     </>
   );
 };

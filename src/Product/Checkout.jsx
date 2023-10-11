@@ -172,7 +172,7 @@ function Checkout() {
   //--------------------
   const Cartdata = async () => {
     try {
-      const existingCartData = axios.post("/api/getcart" , {userid});
+      const existingCartData = axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getcart" , {userid});
       existingCartData ? Setdata2((await existingCartData).data.Getdata.cartdata) : navigate("/")
     } catch (error) {
       console.log(error);
@@ -182,7 +182,7 @@ function Checkout() {
   const PrevOrderInfo = async () => {
     const email = cookie.get("Useremail");
     try {
-      const prevdata = await axios.post("/api/contactinfo", { email });
+      const prevdata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/contactinfo", { email });
       console.log(prevdata.data)
       if (prevdata) {
         prevdata.data.odata.map((elm, ind) => {
@@ -214,7 +214,7 @@ function Checkout() {
       ErrorToast("Please Fill All The Fields", 3000);
       
     } else {
-     const Order = await axios.post("/api/orderproduct" , {data , courier : courier.cname , data2 , couriercharges : courier.charges , totalamount : total , amount : amount , userid })
+     const Order = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/orderproduct" , {data , courier : courier.cname , data2 , couriercharges : courier.charges , totalamount : total , amount : amount , userid })
       if (Order.data.success === true && Order.data.status === 200) {
         SuccessToast("Ordered! Check Email" , 3000);
         localStorage.removeItem("Cart");
@@ -247,7 +247,7 @@ function Checkout() {
   const AddQty = async (val) => {
     const findindex = data2.findIndex(elm => elm.id === val.id);
     data2[findindex].qty += 1;
-    await axios.post("/api/cart" , {userid , data2})
+    await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/cart" , {userid , data2})
     Cartdata();
 
   }
@@ -258,13 +258,13 @@ function Checkout() {
     } else {
       WarningToast("Limit Exceed")
     }
-    await axios.post("/api/cart" , {userid , data2})
+    await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/cart" , {userid , data2})
     Cartdata();
   }
   //---------------------------
   const RemoveItem = async (index) => {
     data2.splice(index, 1);
-    await axios.post("/api/cart" , {userid , data2})
+    await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/cart" , {userid , data2})
     Cartdata();
     SuccessToast("Item Removed", 3000);
   }

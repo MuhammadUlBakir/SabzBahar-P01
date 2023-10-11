@@ -54,7 +54,7 @@ export default function Wishlistpage () {
     const WishlistItems = async () => {
       try {
           const userid = cookie.get("Userid");
-          const products = await axios.post("/api/getwishdata" , {userid});
+          const products = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getwishdata" , {userid});
         if (products.data) {
           Setdata(products.data.getWishlistdata.whishproducts);
         } else {

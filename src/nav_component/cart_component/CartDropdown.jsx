@@ -154,14 +154,14 @@ const Cart = ({ theme }) => {
   };
   // -------------------------
   const Getcartdata = async () => {
-    const Cardata = await axios.post("/api/getcart", { userid: userid });
+    const Cardata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getcart", { userid: userid });
     Carddata ? Setcartdata(Cardata.data.Getdata.cartdata) : "";
   };
   //--------------------------
   const WishlistItems = async () => {
     try {
       const userid = cookie.get("Userid");
-      const products = await axios.post("/api/getwishdata", { userid });
+      const products = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getwishdata", { userid });
       if (products.data) {
         Setpdata(products.data.getWishlistdata.whishproducts);
       } else {

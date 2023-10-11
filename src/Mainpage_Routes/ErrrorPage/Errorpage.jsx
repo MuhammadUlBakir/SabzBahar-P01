@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Errorstyled = styled.div`
 body {
@@ -90,7 +91,7 @@ h2 {
 `;
 const CustomStyle = styled.div`
 position : relative;
-left : 650px;
+left : 690px;
 top : 200px;
 height : 700px;
 width : 700px;
@@ -107,11 +108,11 @@ h2 {
     h1 {
         font-size : 100px;
         position : relative;
-        left : -610px;
+        left : -655px;
     };
     h2 {
         position : relative;
-        left : -565px;
+        left : -615px;
         font-size : 20px;
         top : -20px;
     };
@@ -125,13 +126,24 @@ margin-left : 30px;
     margin-left : 20px;
     }
 `
+const Buttonres = styled.div`
+position : relative;
+left : 190px;
+@media (max-width: 767.98px) {
+position : relative;
+left : -595px;
+}
+`
 const Errorpage = () => {
+    const navigate = useNavigate();
+    //----------------
   return (
     <>
       <Errorstyled>
               <CustomStyle>
               <h1 aria-label="408 Error">4<span></span>4</h1>
-<h2>Page Not Found!</h2>
+                  <h2>Page Not Found!</h2>
+                  <Buttonres><button style={{height : "40px" , width : "140px" , backgroundColor : "#3e6553" , color : "white" , borderRadius : "7px"}} onClick={() => navigate("/")}>Go Back</button></Buttonres>
     </CustomStyle>
       </Errorstyled>
     </>

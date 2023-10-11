@@ -33,7 +33,7 @@ function Signup() {
                WarningToast("Plz fill All Fields")
             } else {
                 if (password === confirm_password) {
-                    const Signupdata = await axios.post("https://tiny-pink-loafers.cyclic.app/api/signupdata", { Signupdata: formData });
+                    const Signupdata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/signupdata", { Signupdata: formData });
                     if (Signupdata.data.success === false && Signupdata.data.status === 4011) {
                         ErrorToast("Invaid Cridentials")
                     }else if (Signupdata.data.success === false && Signupdata.data.status === 4012) {

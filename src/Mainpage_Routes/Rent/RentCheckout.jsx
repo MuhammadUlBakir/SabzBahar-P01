@@ -178,7 +178,7 @@ function RentCheckout() {
     try {
       localStorage.removeItem("RentData1");
       //---------------
-      const rentcartdata = await axios.post("/api/getrent", { userid });
+      const rentcartdata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getrent", { userid });
       rentcartdata ? Setrentdata(rentcartdata.data.rentdata.rentcartdata) : navigate("/");
     } catch (error) {
       console.log(error);
@@ -219,7 +219,7 @@ function RentCheckout() {
        if (!email || !cardholdername || !cardnum || !contact || !cityname || !address || !shipping.price) {
            ErrorToast("Plz Fill All Fields")
        } else {
-           const newrent = await axios.post("/api/createrent" , {data , rentdata , sname : shipping.name , sprice : shipping.price})
+           const newrent = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/createrent" , {data , rentdata , sname : shipping.name , sprice : shipping.price})
          if (newrent.data.success === true && newrent.data.status === 201) {
            SuccessToast("Order Placed Successfully")
            localStorage.removeItem("RentData1")
@@ -255,7 +255,7 @@ function RentCheckout() {
   const AddQty = async (val) => {
     const findindex = rentdata.findIndex(elm => elm.rid === val.rid);
     rentdata[findindex].qty += 1;
-    await axios.post("/api/rentcart", { userid, data: rentdata });
+    await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/rentcart", { userid, data: rentdata });
     Cartdata();
 
   }
@@ -266,13 +266,13 @@ function RentCheckout() {
     } else {
       WarningToast("Limit Exceed")
     }
-    await axios.post("/api/rentcart", { userid, data: rentdata });
+    await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/rentcart", { userid, data: rentdata });
     Cartdata();
   }
 //   //---------------------------
   const RemoveItem = async (index) => {
     rentdata.splice(index, 1);
-    await axios.post("/api/rentcart", { userid, data: rentdata });
+    await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/rentcart", { userid, data: rentdata });
     SuccessToast("Item Removed", 3000);
     Cartdata();
     

@@ -39,7 +39,7 @@ const ChangePassword = () => {
         const {pass , changePassword} = data
             try {
                 if (pass === changePassword) {
-                    const Sendpass = await axios.post("https://tiny-pink-loafers.cyclic.app/api/changepass", { pass: pass, userid: userid });
+                    const Sendpass = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/changepass", { pass: pass, userid: userid });
                     if (Sendpass.data.success === true && Sendpass.data.status === 201) {
                         SuccessToast("Password Change");
                         setTimeout(() => navigate("/signin"), 3000);

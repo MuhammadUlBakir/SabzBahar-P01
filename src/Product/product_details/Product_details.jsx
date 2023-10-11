@@ -150,7 +150,7 @@ const Product_details = () => {
     Setloading(true);
     try {
       if (Productid) {
-        const productdata = await axios.get("/api/getproduct");
+        const productdata = await axios.get("https://cyan-light-chameleon.cyclic.cloud/api/getproduct");
         const details = productdata.data.Productdata.filter((elm) => elm._id === Productid);
         Setdata2(details);
         Setloading(false);
@@ -172,7 +172,7 @@ const Product_details = () => {
   const Getwishdata = async () => {
     try {
       const userid = cookie.get("Userid");
-      const getwishdata = await axios.post("/api/getwishdata", { userid: userid });
+      const getwishdata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getwishdata", { userid: userid });
       const authwishlist = getwishdata.data.getWishlistdata.whishproducts.filter(elm => elm.pid === Productid);
       if (authwishlist[0]) {
         Setwished(true)
@@ -215,7 +215,7 @@ const Product_details = () => {
   try {
     const userid = cookie.get("Userid");
     if (userid && Productid) {
-      const Addwishlist = await axios.post("/api/productwishlist", { userid, productid: Productid });
+      const Addwishlist = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/productwishlist", { userid, productid: Productid });
       if (Addwishlist.data.success === true && Addwishlist.data.status === 201) {
         // Getproductdetail();
         SuccessToast("Wishlisted Successfully");

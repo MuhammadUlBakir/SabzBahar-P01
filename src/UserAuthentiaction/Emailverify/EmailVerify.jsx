@@ -15,7 +15,7 @@ const EmailVerify = () => {
     event.preventDefault();
     try {
       if (email) {
-        const Verify = await axios.post("https://tiny-pink-loafers.cyclic.app/api/verifyemail", { email: email });
+        const Verify = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/verifyemail", { email: email });
           if (Verify.data.success === true && Verify.data.status === 200) {
               cookie.set("EmailVerified", Verify.data.userid);
               SuccessToast("Email Verified")

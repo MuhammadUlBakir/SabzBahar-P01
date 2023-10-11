@@ -300,7 +300,7 @@ const Rentcard = (props) => {
   };
   //---------------------------
   const Getrentcart = async () => {
-    const rentdata = await axios.post("/api/getrent", { userid });
+    const rentdata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getrent", { userid });
     rentdata ? Setrdata(rentdata.data.rentdata.rentcartdata) : []
   }
     //---------------------------
@@ -324,7 +324,7 @@ const Rentcard = (props) => {
             rdata.push(rentdata);
             SuccessToast("Rent Product Added" , "top-center")
           }
-          await axios.post("/api/rentcart", { userid, data: rdata});
+          await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/rentcart", { userid, data: rdata});
           localStorage.setItem("RentData1", JSON.stringify(rdata));
 
         } catch (error) {

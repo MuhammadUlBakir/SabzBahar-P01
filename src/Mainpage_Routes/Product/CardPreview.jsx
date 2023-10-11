@@ -283,7 +283,7 @@ const CardPreview = (props) => {
       data.push(NewCart);
       SuccessToast("Added To Cart" , "top-center")
     }
-    const Cart = await axios.post("/api/cart", { userid, data2: data });
+    const Cart = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/cart", { userid, data2: data });
     localStorage.setItem("Cart", JSON.stringify(data));
   };
   //----------------------------
@@ -308,7 +308,7 @@ const CardPreview = (props) => {
     try {
       const userid = cookie.get("Userid");
       if (productid && userid) {
-        const Addwishlist = await axios.post("/api/productwishlist", { userid, productid: productid });
+        const Addwishlist = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/productwishlist", { userid, productid: productid });
         if (Addwishlist.data.success === true && Addwishlist.data.status === 201) {
          SuccessToast("Added To Whishlist" , "top-center")
         } else if (Addwishlist.data.status === 402) {

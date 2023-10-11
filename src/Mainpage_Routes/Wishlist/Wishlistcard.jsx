@@ -293,7 +293,7 @@ const Wishlistcard = (props) => {
   //----------------------------
   const WishlistItems = async () => {
     try {
-        const products = await axios.post("/api/getwishdata" , {userid});
+        const products = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getwishdata" , {userid});
       if (products.data) {
         Setpdata(products.data.getWishlistdata.whishproducts);
       } else {
@@ -307,7 +307,7 @@ const Wishlistcard = (props) => {
     const Removewishlist = async (val) => {
         try {
         //   alert(userid)
-            const removeitem = await axios.post("/api/deleteitem", { userid, productid: val });
+            const removeitem = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/deleteitem", { userid, productid: val });
             if (removeitem.data.success === true) {
                 WishlistItems();
                 // SuccessToast("Wishlist Deleted Successfully");

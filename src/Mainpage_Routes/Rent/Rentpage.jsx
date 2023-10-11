@@ -71,7 +71,7 @@ export default function RentPage () {
     const WishlistItems = async () => {
       try {
           const userid = cookie.get("Userid");
-          const products = await axios.post("/api/getwishdata" , {userid});
+          const products = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getwishdata" , {userid});
         if (products.data) {
           Setdata(products.data.getWishlistdata.whishproducts);
         } else {
@@ -83,7 +83,7 @@ export default function RentPage () {
   } 
   //----------------------------
   const Cartnum = async () => {
-    const rentdata = await axios.post("/api/getrent", { userid });
+    const rentdata = await axios.post("https://cyan-light-chameleon.cyclic.cloud/api/getrent", { userid });
     rentdata ? Setcnum(rentdata.data.rentdata.rentcartdata) : []
   }
     //---------------------------- 

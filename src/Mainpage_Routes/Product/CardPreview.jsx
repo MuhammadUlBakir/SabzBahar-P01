@@ -25,8 +25,8 @@ body {
 
 .container {
     display: grid;
-grid-template-columns: repeat(3, 1fr); /* 5 equal columns */
-gap: 20px; /* Adjust the gap between cards */
+grid-template-columns: repeat(3, 1fr);
+gap: 20px; 
 
 }
 

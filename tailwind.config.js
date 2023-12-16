@@ -10,6 +10,7 @@ export default {
     // "./src/Product/product_details/Product_tabs.jsx",
     // "./src/Product/product_details/Image_thumbnail.{js,ts,jsx,tsx}",
     "./src/Product/Product_page/*.{js,ts,jsx,tsx}",
+    "./src/Product/Checkout/*.{js,jsx}"
     // "./src/nav_component/wishlist/**/*.{js,ts,jsx,tsx}",
     
   ],
@@ -17,6 +18,12 @@ export default {
     extend: {
       boxShadow: {
         '3m': 'rgba(0, 0, 0, 0.1) 0px 4px 12px;',
+      },
+      fontFamily: {
+        "inter" : "Inter"
+      },
+      container: {
+        center: true,
       }
     },
   },

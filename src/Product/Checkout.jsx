@@ -298,7 +298,7 @@ function Checkout() {
 
   {/* <p className="text-xl font-medium">Payment Details {price}</p> */}
   <p className="text-gray-400" style={{marginTop : "30px"}}>
-    Complete your order by providing your payment details. 
+    Complete your order bys providing your payment details. 
  
   </p>
   <div className="">

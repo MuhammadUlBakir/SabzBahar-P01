@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+  *{
+    box-sizing: border-box;
+  }
+   @media (min-width : 1024px) {
+   .container {
+    max-width: 992px !important;
+    margin-left: auto;
+    margin-right: auto;
+   }
+   }
+ 

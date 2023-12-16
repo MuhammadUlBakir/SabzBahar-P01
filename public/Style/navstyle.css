@@ -17,5 +17,10 @@
       border-radius: 1rem 0 0 1rem;
       transition: .3s;
       z-index: var(--z-fixed);
+      background-color: yellow;
     }
   }
+
+ * {
+  background-color: yellow;
+ } 

@@ -28,6 +28,7 @@ import Wishlistpage from "../Mainpage_Routes/Wishlist/wishlist";
 import RentPage from "../Mainpage_Routes/Rent/Rentpage";
 import RentCheckout from "../Mainpage_Routes/Rent/RentCheckout";
 import Errorpage from "../Mainpage_Routes/ErrrorPage/Errorpage";
+import Checkout2 from "../Product/Checkout2";
 
 const Pagebound2 = () => {
   return (
@@ -67,7 +68,9 @@ const Pagebound2 = () => {
           <Route path="/rent" element={<RentPage />} />
           <Route path="/rentcheckout" element = {<RentCheckout/>}/>
           {/* --------------- Profile ------------------ */}
-          <Route path="/userprofile" element = {<Profile/>} />
+          <Route path="/userprofile" element={<Profile />} />
+          {/* --------------------- Test */}
+          <Route path="/checktest" element={<Checkout2/>}/>
       </Routes>
       </BrowserRouter>
     </>

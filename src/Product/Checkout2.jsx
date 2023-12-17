@@ -131,26 +131,43 @@ const Checkout2 = () => {
                                   </div>
                                       </SwiperSlide>
                                       <SwiperSlide>
-                                      <div className='pt-[52px] pb-[40px]'>
-                                      <p className='text-black text-[16px] font-medium leading-normal font-inter m-0 pb-[15px]'>Account details</p>
+                                          <div className='pt-[52px] pb-[40px]'>
+                                          <div className='pb-[15px]'>
+                                              <div className='full h-[2px] bg-[#E2E8F0]'></div>
+                                              </div>
+                                      <p className='text-black text-[19px] font-semibold  leading-normal font-inter m-0 pb-[15px] pt-[15px]'>Payment Details</p>
                                       <div className='pt-[15px] pb-[17.5px]'>
-                                          <p className='text-[#718096] font-inter text-[14px] font-medium pb-[10.5px]'>Email address</p>
+                                          <p className='text-[#718096] font-inter text-[14px] font-medium pb-[10.5px]'>Enter On Name card</p>
                                           <div className='mt-[10.5px] mb-[10px] px-[20px] py-[20px] bg-[#c8fdc8] rounded-[10px]'>
-                                              <input type="email" placeholder='Email@myemail.com' className='bg-transparent border-0 focus:outline-none w-full font-inter text-[14px] font-medium placeholder:text-black' />
+                                              <input type="email" placeholder='Enter Card Name' className='bg-transparent border-0 focus:outline-none w-full font-inter text-[14px] font-medium placeholder:text-black' />
                                           </div>
-                                          <p className='text-[#718096] font-inter text-[14px] font-medium pb-[10.5px] pt-[10px]'>Email address</p>
+                                          <p className='text-[#718096] font-inter text-[14px] font-medium pb-[10.5px] pt-[10px]'>Card number</p>
                                           <div className='mt-[10.5px] px-[20px] py-[20px] bg-[#c8fdc8] rounded-[10px]'>
                                               <input type="text" placeholder='********' className='bg-transparent border-0 focus:outline-none w-full font-inter text-[14px] font-medium placeholder:text-black' />
-                                          </div>
+                                                  </div>
+                                                  <div className='pt-[10px]'>
+                                                      <p className='text-[#718096] font-inter text-[14px] font-medium pb-[10px] pt-[10px]'>Expiration</p>
+                                                      <div className='flex gap-x-[28px] pt-[10.5px]'>
+                                                          <div className='flex gap-x-[8px] items-center w-[50%]'>
+                                                          <div className='Col1 px-[20px] py-[20px] bg-[#c8fdc8] rounded-[10px]'>
+                                                              <input type="text" placeholder='00' maxLength={2} className='bg-transparent text-center border-0 focus:outline-none w-full font-inter text-[14px] font-medium placeholder:text-black' />
+                                                          </div>
+                                                          <div className='Col2'>
+                                                              <p className='text-[19px] text-black font-inter'>/</p>
+                                                          </div>
+                                                          <div className='Col1 px-[20px] py-[20px] bg-[#c8fdc8] rounded-[10px]'>
+                                                              <input type="text" placeholder='00' maxLength={2}  className='bg-transparent text-center border-0 focus:outline-none w-full font-inter text-[14px] font-medium placeholder:text-black' />
+                                                          </div>
+                                                          </div>
+                                                          <div className='Col2 px-[20px] py-[20px] rounded-[10px] bg-[#c8fdc8] w-[50%] '>
+                                                          <input type="text" placeholder='Enter CVC Number' maxLength={3} className='bg-transparent border-0 focus:outline-none w-full font-inter text-[14px] font-medium placeholder:text-black' />
+
+                                                          </div>
+                                                      </div>
+
+                                                  </div>
                                       </div>
-                                      <div className='flex items-center justify-end text-right pt-[17.5px] gap-x-[30px] '>
-                                          <div className='col1'>
-                                              <p className='font-inter text-[14px] font-medium'>Register for account</p>
-                                          </div>
-                                          <div className='col2'>
-                                              <div className='px-[28px] cursor-pointer py-[16px] bg-[#3e6553] rounded-[8px] font-inter text-[14px] font-medium  text-white'>Login</div>
-                                          </div>
-                                      </div>
+                                      
                                   </div>
                                       </SwiperSlide>
                                   </Swiper>

@@ -12,4 +12,33 @@
     margin-right: auto;
    }
    }
- 
+   .swiper-pagination {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    /* justify-content: space-around; */
+    width: 100%;
+  }
+  .swiper-pagination .swiper-pagination-bullet-active {
+    background-color: transparent;
+    color: green;
+    /* line-height: 5; /* Adjust the value to control the space between text and underline */
+    /* border-bottom: 2px solid green; */ 
+  }
+  /* .swiper-pagination .swiper-pagination-bullet {
+    background-color: transparent;
+  } */
+  .swiper-pagination .swiper-pagination-bullet {
+    padding: 5px 10px;
+    border-radius: 0;
+    width: auto;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    opacity: 1;
+    background-color: transparent;
+  }
